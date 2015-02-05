@@ -1,4 +1,4 @@
-<?php namespace spec\CeesVanEgmond\Minify\Providers;
+<?php namespace spec\Devfactory\Minify\Providers;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -8,7 +8,7 @@ class JavaScriptSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CeesVanEgmond\Minify\Providers\JavaScript');
+        $this->shouldHaveType('Devfactory\Minify\Providers\JavaScript');
     }
 
     function it_adds_one_file()
@@ -50,13 +50,13 @@ class JavaScriptSpec extends ObjectBehavior
 
     function it_throws_exception_when_file_not_exists()
     {
-        $this->shouldThrow('CeesVanEgmond\Minify\Exceptions\FileNotExistException')
+        $this->shouldThrow('Devfactory\Minify\Exceptions\FileNotExistException')
             ->duringAdd('foobar');
     }
 
     function it_should_throw_exception_when_buildpath_not_exist()
     {
-        $this->shouldThrow('CeesVanEgmond\Minify\Exceptions\DirNotExistException')
+        $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotExistException')
             ->duringMake('bar');
     }
 
@@ -64,7 +64,7 @@ class JavaScriptSpec extends ObjectBehavior
     {
         vfsStream::setup('js',0555, array());
 
-        $this->shouldThrow('CeesVanEgmond\Minify\Exceptions\DirNotWritableException')
+        $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotWritableException')
             ->duringMake(vfsStream::url('js'));
     }
 
