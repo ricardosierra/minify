@@ -1,8 +1,8 @@
-<?php  namespace CeesVanEgmond\Minify;
+<?php  namespace Devfactory\Minify;
 
-use CeesVanEgmond\Minify\Exceptions\InvalidArgumentException;
-use CeesVanEgmond\Minify\Providers\JavaScript;
-use CeesVanEgmond\Minify\Providers\StyleSheet;
+use Devfactory\Minify\Exceptions\InvalidArgumentException;
+use Devfactory\Minify\Providers\JavaScript;
+use Devfactory\Minify\Providers\StyleSheet;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Request;

@@ -1,11 +1,8 @@
 # Minify
 
-[![Build Status](https://travis-ci.org/ceesvanegmond/minify.svg?branch=master)](https://travis-ci.org/ceesvanegmond/minify)
-[![Latest Stable Version](https://poser.pugx.org/ceesvanegmond/minify/v/stable.png)](https://packagist.org/packages/ceesvanegmond/minify)
-[![Total Downloads](https://poser.pugx.org/ceesvanegmond/minify/downloads.png)](https://packagist.org/packages/ceesvanegmond/minify)
-[![License](https://poser.pugx.org/ceesvanegmond/minify/license.png)](https://packagist.org/packages/ceesvanegmond/minify)
+With this package you can minify your existing stylessheet and javascript files for laravel 5. This process can be a little tough, this package simplies this process and automates it.
 
-With this package you can minify your existing stylessheet and javascript files. This process can be a little tough, this package simplies this process and automates it.
+For Larvel 4 please use [ceesvanegmond/minify](https://github.com/ceesvanegmond/minify)
 
 ## Installation
 
@@ -14,7 +11,7 @@ Begin by installing this package through Composer.
 ```js
 {
     "require": {
-    	"ceesvanegmond/minify": "2.0.*"
+    	"devfactory/minify": "3.0.*"
 	}
 }
 ```
@@ -23,14 +20,14 @@ Begin by installing this package through Composer.
 
 Then register the service provider and Facade by opening `app/config/app.php`
 
-    'CeesVanEgmond\Minify\MinifyServiceProvider',
+    'Devfactory\Minify\MinifyServiceProvider',
 
-    'Minify'        => 'CeesVanEgmond\Minify\Facades\MinifyFacade',
+    'Minify'        => 'Devfactory\Minify\Facades\MinifyFacade',
 
 
 Publish the config file:
 ```
-php artisan config:publish ceesvanegmond/minify
+php artisan config:publish devfactory/minify
 ```
 
 When you've added the ```MinifyServiceProvider``` an extra ```Minify``` facade is available.
@@ -137,31 +134,4 @@ return array(
     'js_build_path' => '/js/builds/',
 
 );
-```
-
-### Without Laravel
-
-```php
-<?php
-$config = array(
-	'ignore_environments' => 'local',
-	'js_build_path' => '/js/builds/',
-	'css_builds_path' => '/css/builds',
-)
-$minify = new CeesVanEgmond\Minify\Providers\Javascript($public_path);
-$minify->add($file)
-
-if (in_array($environment, $config['ignore_environments']))
-{
-    return $provider->tags();
-}
-
-if ( ! $minify->make($config['css_build_path'] ) {
-	$filename = $provider->tag($config['css_build_path'] . $provider->getFilename());
-}
-
-$provider->minify();
-
-$filename = $provider->tag($config['css_build_path'] . $provider->getFilename());
-
 ```

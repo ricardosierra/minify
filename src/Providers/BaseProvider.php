@@ -1,10 +1,10 @@
-<?php  namespace CeesVanEgmond\Minify\Providers;
+<?php  namespace Devfactory\Minify\Providers;
 
-use CeesVanEgmond\Minify\Exceptions\CannotRemoveFileException;
-use CeesVanEgmond\Minify\Exceptions\CannotSaveFileException;
-use CeesVanEgmond\Minify\Exceptions\DirNotExistException;
-use CeesVanEgmond\Minify\Exceptions\DirNotWritableException;
-use CeesVanEgmond\Minify\Exceptions\FileNotExistException;
+use Devfactory\Minify\Exceptions\CannotRemoveFileException;
+use Devfactory\Minify\Exceptions\CannotSaveFileException;
+use Devfactory\Minify\Exceptions\DirNotExistException;
+use Devfactory\Minify\Exceptions\DirNotWritableException;
+use Devfactory\Minify\Exceptions\FileNotExistException;
 use Countable;
 
 abstract class BaseProvider implements Countable
@@ -66,7 +66,7 @@ abstract class BaseProvider implements Countable
     /**
      * @param  $file
      * @return void
-     * @throws \CeesVanEgmond\Minify\Exceptions\FileNotExistException
+     * @throws \Devfactory\Minify\Exceptions\FileNotExistException
      */
     public function add($file)
     {
@@ -133,8 +133,8 @@ abstract class BaseProvider implements Countable
     }
 
     /**
-     * @throws \CeesVanEgmond\Minify\Exceptions\DirNotWritableException
-     * @throws \CeesVanEgmond\Minify\Exceptions\DirNotExistException
+     * @throws \Devfactory\Minify\Exceptions\DirNotWritableException
+     * @throws \Devfactory\Minify\Exceptions\DirNotExistException
      */
     protected function checkDirectory()
     {
@@ -222,7 +222,7 @@ abstract class BaseProvider implements Countable
     }
 
     /**
-     * @throws \CeesVanEgmond\Minify\Exceptions\CannotRemoveFileException
+     * @throws \Devfactory\Minify\Exceptions\CannotRemoveFileException
      */
     protected function removeOldFiles()
     {
@@ -243,7 +243,7 @@ abstract class BaseProvider implements Countable
     /**
      * @param $minified
      * @return string
-     * @throws \CeesVanEgmond\Minify\Exceptions\CannotSaveFileException
+     * @throws \Devfactory\Minify\Exceptions\CannotSaveFileException
      */
     protected function put($minified)
     {

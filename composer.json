@@ -1,13 +1,9 @@
 {
-  "name": "ceesvanegmond/minify",
+  "name": "devfactory/minify",
   "keywords": ["minify", "laravel"],
   "description": "A package for minifying styles and javascript ",
   "license": "MIT",
   "authors": [
-    {
-      "name": "Cees van Egmond",
-      "email": "cees@ceesvanegmond.com"
-    },
     {
       "name": "Da Costa Alcindo",
       "email": "alcindo.dacosta@devfactory.ch"
@@ -25,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "CeesVanEgmond\\Minify": "src/"
+      "Devfactory\\Minify": "src/"
     }
   },
   "minimum-stability": "stable"
