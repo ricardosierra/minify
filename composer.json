@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Devfactory\\Minify": "src/"
+      "Devfactory\\Minify\\": "src/"
     }
   },
   "minimum-stability": "stable"
