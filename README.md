@@ -11,7 +11,7 @@ Begin by installing this package through Composer.
 ```js
 {
     "require": {
-    	"devfactory/minify": "3.0.*"
+    	"devfactory/minify": "1.0.*"
 	}
 }
 ```
