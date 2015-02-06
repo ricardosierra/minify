@@ -46,10 +46,18 @@ abstract class BaseProvider implements Countable
     {
         $this->publicPath = $publicPath ?: $_SERVER['DOCUMENT_ROOT'];
 
-        $this->headers = getallheaders();
-        $this->headers['Connection'] = 'close';
-        $this->headers['Accept-Encoding'] = 'identity';
-        unset($this->headers['Host'], $this->headers['Cookie']);
+        $value = function($key)
+        {
+            return isset($_SERVER[$key]) ? $_SERVER[$key] : '';
+        };
+
+        $this->headers = array(
+            'User-Agent'      => $value('HTTP_USER_AGENT'),
+            'Accept'          => $value('HTTP_ACCEPT'),
+            'Accept-Language' => $value('HTTP_ACCEPT_LANGUAGE'),
+            'Accept-Encoding' => 'identity',
+            'Connection'      => 'close',
+        );
     }
 
     /**
