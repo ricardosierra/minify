@@ -30,6 +30,16 @@ abstract class BaseProvider implements Countable
     protected $files = array();
 
     /**
+     * @var array
+     */
+    protected $codes = array();
+
+    /**
+     * @var array
+     */
+    protected $headers = array();
+
+    /**
      * @var string
      */
     private $publicPath;
@@ -65,17 +75,53 @@ abstract class BaseProvider implements Countable
 
     /**
      * @param  $file
+     * @param  $strict
      * @return void
      * @throws \Devfactory\Minify\Exceptions\FileNotExistException
      */
-    public function add($file)
+    public function add($file, $strict)
     {
         if (is_array($file))
         {
-            array_map(array($this, 'add'), $file);
+            foreach ($file as $value) $this->add($value, $strict);
         }
-        else
+        else if ($this->checkExternalFile($file))
         {
+            if ($strict)
+            {
+                if (strpos($file, '//') === 0) $file = 'http:' . $file;
+
+                $headers = getallheaders();
+                $headers['Connection'] = 'close';
+                $headers['Accept-Encoding'] = 'identity';
+                unset($headers['Host'], $headers['Cookie']);
+
+                foreach ($headers as $key => $value)
+                {
+                  $headers[$key] = $key . ': ' . $value;
+                }
+
+                $context = stream_context_create(array('http' => array(
+                  'ignore_errors' => true,
+                  'header' => implode("\r\n", $headers),
+                )));
+
+                $code = file_get_contents($file, false, $context);
+
+                if (strpos($http_response_header[0], '200') === false)
+                {
+                  throw new FileNotExistException("File '{$file}' does not exist");
+                }
+
+                $this->files[] = $file;
+                $this->codes[$file] = $code;
+                $this->headers[$file] = $http_response_header;
+            }
+            else {
+                $this->files[] = $file;
+            }
+        }
+        else {
             $file = $this->publicPath . $file;
             if (!file_exists($file))
             {
@@ -150,6 +196,15 @@ abstract class BaseProvider implements Countable
     }
 
     /**
+     * @param  string  $file
+     * @return bool
+     */
+    protected function checkExternalFile($file)
+    {
+        return preg_match('/^(https?:)?\/\//', $file);
+    }
+
+    /**
      * @return string
      */
     protected function buildMinifiedFilename()
@@ -215,7 +270,13 @@ abstract class BaseProvider implements Countable
 
         foreach ($this->files as $file)
         {
-            $time += filemtime($file);
+            if ($this->checkExternalFile($file))
+            {
+                $time += hexdec(md5($this->codes[$file]));
+            }
+            else {
+                $time += filemtime($file);
+            }
         }
 
         return $time;
