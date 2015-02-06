@@ -144,10 +144,9 @@ class Minify
    * @param $file
    */
   private function process($file) {
-    $minifyForCurrentEnvironment = $this->minifyForCurrentEnvironment();
-    $this->provider->add($file, $minifyForCurrentEnvironment);
+    $this->provider->add($file);
 
-    if($minifyForCurrentEnvironment && $this->provider->make($this->buildPath))
+    if($this->minifyForCurrentEnvironment() && $this->provider->make($this->buildPath))
       {
         $this->provider->minify();
       }

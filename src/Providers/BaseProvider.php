@@ -32,11 +32,6 @@ abstract class BaseProvider implements Countable
     /**
      * @var array
      */
-    protected $codes = array();
-
-    /**
-     * @var array
-     */
     protected $headers = array();
 
     /**
@@ -50,6 +45,11 @@ abstract class BaseProvider implements Countable
     public function __construct($publicPath = null)
     {
         $this->publicPath = $publicPath ?: $_SERVER['DOCUMENT_ROOT'];
+
+        $this->headers = getallheaders();
+        $this->headers['Connection'] = 'close';
+        $this->headers['Accept-Encoding'] = 'identity';
+        unset($this->headers['Host'], $this->headers['Cookie']);
     }
 
     /**
@@ -75,51 +75,18 @@ abstract class BaseProvider implements Countable
 
     /**
      * @param  $file
-     * @param  $strict
      * @return void
      * @throws \Devfactory\Minify\Exceptions\FileNotExistException
      */
-    public function add($file, $strict)
+    public function add($file)
     {
         if (is_array($file))
         {
-            foreach ($file as $value) $this->add($value, $strict);
+            foreach ($file as $value) $this->add($value);
         }
         else if ($this->checkExternalFile($file))
         {
-            if ($strict)
-            {
-                if (strpos($file, '//') === 0) $file = 'http:' . $file;
-
-                $headers = getallheaders();
-                $headers['Connection'] = 'close';
-                $headers['Accept-Encoding'] = 'identity';
-                unset($headers['Host'], $headers['Cookie']);
-
-                foreach ($headers as $key => $value)
-                {
-                  $headers[$key] = $key . ': ' . $value;
-                }
-
-                $context = stream_context_create(array('http' => array(
-                  'ignore_errors' => true,
-                  'header' => implode("\r\n", $headers),
-                )));
-
-                $code = file_get_contents($file, false, $context);
-
-                if (strpos($http_response_header[0], '200') === false)
-                {
-                  throw new FileNotExistException("File '{$file}' does not exist");
-                }
-
-                $this->files[] = $file;
-                $this->codes[$file] = $code;
-                $this->headers[$file] = $http_response_header;
-            }
-            else {
-                $this->files[] = $file;
-            }
+            $this->files[] = $file;
         }
         else {
             $file = $this->publicPath . $file;
@@ -164,7 +131,31 @@ abstract class BaseProvider implements Countable
     protected function appendFiles()
     {
         foreach ($this->files as $file) {
-            $this->appended .= file_get_contents($file);
+            if ($this->checkExternalFile($file))
+            {
+                if (strpos($file, '//') === 0) $file = 'http:' . $file;
+
+                $headers = $this->headers;
+                foreach ($headers as $key => $value)
+                {
+                    $headers[$key] = $key . ': ' . $value;
+                }
+                $context = stream_context_create(array('http' => array(
+                    'ignore_errors' => true,
+                    'header' => implode("\r\n", $headers),
+                )));
+
+                $contents = file_get_contents($file, false, $context);
+
+                if (strpos($http_response_header[0], '200') === false)
+                {
+                    throw new FileNotExistException("File '{$file}' does not exist");
+                }
+            } else {
+                $contents = file_get_contents($file);
+            }
+
+            $this->appended .= $contents . "\n";
         }
     }
 
@@ -272,7 +263,8 @@ abstract class BaseProvider implements Countable
         {
             if ($this->checkExternalFile($file))
             {
-                $time += hexdec(md5($this->codes[$file]));
+                $userAgent = isset($this->headers['User-Agent']) ? $this->headers['User-Agent'] : '';
+                $time += hexdec(md5($file . $userAgent));
             }
             else {
                 $time += filemtime($file);
