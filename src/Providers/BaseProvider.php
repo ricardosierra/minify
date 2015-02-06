@@ -134,7 +134,7 @@ abstract class BaseProvider implements Countable
     }
 
     /**
-     *
+     * @throws \Devfactory\Minify\Exceptions\FileNotExistException
      */
     protected function appendFiles()
     {
