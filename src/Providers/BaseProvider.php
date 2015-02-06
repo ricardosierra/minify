@@ -153,6 +153,7 @@ abstract class BaseProvider implements Countable
                     'header' => implode("\r\n", $headers),
                 )));
 
+                $http_response_header = array(false);
                 $contents = file_get_contents($file, false, $context);
 
                 if (strpos($http_response_header[0], '200') === false)
