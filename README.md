@@ -52,6 +52,8 @@ You can use this Facade anywhere in your application
 		{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'), array('foo' => 'bar')) !!}
 		// add full uri of the resource
 		{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'))->withFullUrl() !!}
+		// Minify files from a CDN or another server
+		{!! Minify::stylesheet(array('//fonts.googleapis.com/css?family=Roboto')) !!}
 
 		// minify and combine all stylesheet files in given folder
 		{!! Minify::stylesheetDir('/css/') !!}
@@ -80,12 +82,14 @@ You can use this Facade anywhere in your application
 	{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'), array('bar' => 'baz')) !!}
 	// add full uri of the resource
 	{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'))->withFullUrl() !!}
+        // Minify files from a CDN or another server
+        {!! Minify::javascript(array('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')) !!}
 
-	// minify and combine all javascript files in given folder
+	// Minify and combine all javascript files in given folder
 	{!! Minify::javascriptDir('/js/') !!}
-	// add custom attributes to minify and combine all javascript files in given folder
+	// Add custom attributes to minify and combine all javascript files in given folder
 	{!! Minify::javascriptDir('/js/', array('bar' => 'baz', 'async' => true)) !!}
-	// minify and combine all javascript files in given folder with full uri
+	// Minify and combine all javascript files in given folder with full uri
 	{!! Minify::javascriptDir('/js/')->withFullUrl() !!}
 </html>
 
