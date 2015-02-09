@@ -30,6 +30,11 @@ abstract class BaseProvider implements Countable
     protected $files = array();
 
     /**
+     * @var array
+     */
+    protected $headers = array();
+
+    /**
      * @var string
      */
     private $publicPath;
@@ -40,6 +45,19 @@ abstract class BaseProvider implements Countable
     public function __construct($publicPath = null)
     {
         $this->publicPath = $publicPath ?: $_SERVER['DOCUMENT_ROOT'];
+
+        $value = function($key)
+        {
+            return isset($_SERVER[$key]) ? $_SERVER[$key] : '';
+        };
+
+        $this->headers = array(
+            'User-Agent'      => $value('HTTP_USER_AGENT'),
+            'Accept'          => $value('HTTP_ACCEPT'),
+            'Accept-Language' => $value('HTTP_ACCEPT_LANGUAGE'),
+            'Accept-Encoding' => 'identity',
+            'Connection'      => 'close',
+        );
     }
 
     /**
@@ -72,10 +90,13 @@ abstract class BaseProvider implements Countable
     {
         if (is_array($file))
         {
-            array_map(array($this, 'add'), $file);
+            foreach ($file as $value) $this->add($value);
         }
-        else
+        else if ($this->checkExternalFile($file))
         {
+            $this->files[] = $file;
+        }
+        else {
             $file = $this->publicPath . $file;
             if (!file_exists($file))
             {
@@ -113,12 +134,37 @@ abstract class BaseProvider implements Countable
     }
 
     /**
-     *
+     * @throws \Devfactory\Minify\Exceptions\FileNotExistException
      */
     protected function appendFiles()
     {
         foreach ($this->files as $file) {
-            $this->appended .= file_get_contents($file);
+            if ($this->checkExternalFile($file))
+            {
+                if (strpos($file, '//') === 0) $file = 'http:' . $file;
+
+                $headers = $this->headers;
+                foreach ($headers as $key => $value)
+                {
+                    $headers[$key] = $key . ': ' . $value;
+                }
+                $context = stream_context_create(array('http' => array(
+                    'ignore_errors' => true,
+                    'header' => implode("\r\n", $headers),
+                )));
+
+                $http_response_header = array(false);
+                $contents = file_get_contents($file, false, $context);
+
+                if (strpos($http_response_header[0], '200') === false)
+                {
+                    throw new FileNotExistException("File '{$file}' does not exist");
+                }
+            } else {
+                $contents = file_get_contents($file);
+            }
+
+            $this->appended .= $contents . "\n";
         }
     }
 
@@ -147,6 +193,15 @@ abstract class BaseProvider implements Countable
         {
             throw new DirNotWritableException("Buildpath '{$this->outputDir}' is not writable");
         }
+    }
+
+    /**
+     * @param  string  $file
+     * @return bool
+     */
+    protected function checkExternalFile($file)
+    {
+        return preg_match('/^(https?:)?\/\//', $file);
     }
 
     /**
@@ -215,7 +270,14 @@ abstract class BaseProvider implements Countable
 
         foreach ($this->files as $file)
         {
-            $time += filemtime($file);
+            if ($this->checkExternalFile($file))
+            {
+                $userAgent = isset($this->headers['User-Agent']) ? $this->headers['User-Agent'] : '';
+                $time += hexdec(md5($file . $userAgent));
+            }
+            else {
+                $time += filemtime($file);
+            }
         }
 
         return $time;

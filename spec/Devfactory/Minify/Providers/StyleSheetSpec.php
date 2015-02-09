@@ -81,7 +81,7 @@ class StyleSheetSpec extends ObjectBehavior
 
         $this->make(vfsStream::url('root/output'));
 
-        $this->getAppended()->shouldBe('ab');
+        $this->getAppended()->shouldBe("a\nb\n");
 
         $output = md5('vfs://root/1.css-vfs://root/2.css');
         $filemtime = filemtime(vfsStream::url('root/1.css')) + filemtime(vfsStream::url('root/2.css'));
