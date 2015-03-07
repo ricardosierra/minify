@@ -273,7 +273,7 @@ abstract class BaseProvider implements Countable
             if ($this->checkExternalFile($file))
             {
                 $userAgent = isset($this->headers['User-Agent']) ? $this->headers['User-Agent'] : '';
-                $time += hexdec(md5($file . $userAgent));
+                $time += hexdec(substr(md5($file . $userAgent), 0, 8));
             }
             else {
                 $time += filemtime($file);
