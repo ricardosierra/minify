@@ -44,7 +44,9 @@ class MinifyServiceProvider extends ServiceProvider {
       return new Minify(
         array(
           'css_build_path' => config('minify.config.css_build_path'),
+          'css_url_path' => config('minify.config.css_url_path'),
           'js_build_path' => config('minify.config.js_build_path'),
+          'js_url_path' => config('minify.config.js_url_path'),
           'ignore_environments' => config('minify.config.ignore_environments'),
           'base_url' => config('minify.config.base_url'),
         ),
