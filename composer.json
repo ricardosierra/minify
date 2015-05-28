@@ -11,7 +11,6 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "smallhadroncollider/uglify-php": "dev-master",
     "tedivm/jshrink": "~1.0",
     "natxet/CssMin": "3.*",
     "illuminate/support": "~5.0"
