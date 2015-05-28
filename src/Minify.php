@@ -43,6 +43,12 @@ class Minify
    * @var bool
    */
   private $onlyUrl = false;
+  
+  /**
+   * @var bool
+   */
+  private $buildExtension;
+   
 
   /**
    * @param array $config
@@ -64,6 +70,7 @@ class Minify
     $this->provider = new JavaScript(public_path());
     $this->buildPath = $this->config['js_build_path'];
     $this->attributes = $attributes;
+    $this->buildExtension = 'js';
 
     $this->process($file);
 
@@ -79,6 +86,7 @@ class Minify
     $this->provider = new StyleSheet(public_path());
     $this->buildPath = $this->config['css_build_path'];
     $this->attributes = $attributes;
+    $this->buildExtension = 'css';
 
     $this->process($file);
 
@@ -94,6 +102,7 @@ class Minify
     $this->provider = new StyleSheet(public_path());
     $this->buildPath = $this->config['css_build_path'];
     $this->attributes = $attributes;
+    $this->buildExtension = 'css';
 
     return $this->assetDirHelper('css', $dir);
   }
@@ -107,6 +116,7 @@ class Minify
     $this->provider = new JavaScript(public_path());
     $this->buildPath = $this->config['js_build_path'];
     $this->attributes = $attributes;
+    $this->buildExtension = 'js';
 
     return $this->assetDirHelper('js', $dir);
   }
@@ -165,7 +175,16 @@ class Minify
         return $this->provider->tags($baseUrl, $this->attributes);
       }
 
-    $filename = $baseUrl . $this->buildPath . $this->provider->getFilename();
+    if( $this->buildExtension == 'js')
+    {
+        $buildPath =  isset($this->config['js_url_path']) ? $this->config['js_url_path'] : $this->buildPath;
+    }
+    else# if( $this->buildExtension == 'css')
+    {
+        $buildPath =  isset($this->config['css_url_path']) ? $this->config['css_url_path'] : $this->buildPath;        
+    }
+    
+    $filename = $baseUrl . $buildPath  . $this->provider->getFilename();
 
     if ($this->onlyUrl) {
       return $filename;
