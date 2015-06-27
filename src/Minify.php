@@ -43,7 +43,7 @@ class Minify
    * @var bool
    */
   private $onlyUrl = false;
-  
+
   /**
    * @var bool
    */
@@ -143,7 +143,12 @@ class Minify
 
     if (count($files) > 0)
       {
-        rsort($files);
+          if($this->config['reverse_sort']) {
+              rsort($files);
+          }
+          else {
+              sort($files);
+          }
         $this->process($files);
       }
 
