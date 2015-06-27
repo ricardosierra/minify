@@ -13,13 +13,13 @@ For Larvel 4 please use [ceesvanegmond/minify](https://github.com/ceesvanegmond/
 
 Begin by installing this package through Composer.
 
-```js
-{
-    "require": {
-    	"devfactory/minify": "1.0.*"
+
+	{
+	    "require": {
+	    	"devfactory/minify": "1.0.*"
+		}
 	}
-}
-```
+
 
 ### Laravel installation
 
@@ -31,112 +31,135 @@ Then register the service provider and Facade by opening `app/config/app.php`
 
 
 Publish the config file:
-```
-php artisan vendor:publish
-```
+
+	php artisan vendor:publish
+
 
 When you've added the ```MinifyServiceProvider``` an extra ```Minify``` facade is available.
 You can use this Facade anywhere in your application
 
 #### Stylesheet
-```php
-// app/views/hello.blade.php
-
-<html>
-	<head>
+	
+	// app/views/hello.blade.php
+	
+	<html>
+		<head>
+			...
+			{!! Minify::stylesheet('/css/main.css') !!}
+			// or by passing multiple files
+			{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css')) !!}
+			// add custom attributes
+			{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'), array('foo' => 'bar')) !!}
+			// add full uri of the resource
+			{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'))->withFullUrl() !!}
+	
+			// minify and combine all stylesheet files in given folder
+			{!! Minify::stylesheetDir('/css/') !!}
+			// add custom attributes to minify and combine all stylesheet files in given folder
+			{!! Minify::stylesheetDir('/css/', array('foo' => 'bar', 'defer' => true)) !!}
+			// minify and combine all stylesheet files in given folder with full uri
+			{!! Minify::stylesheetDir('/css/')->withFullUrl() !!}
+		</head>
 		...
-		{!! Minify::stylesheet('/css/main.css') !!}
-		// or by passing multiple files
-		{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css')) !!}
-		// add custom attributes
-		{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'), array('foo' => 'bar')) !!}
-		// add full uri of the resource
-		{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'))->withFullUrl() !!}
+	</html>
 
-		// minify and combine all stylesheet files in given folder
-		{!! Minify::stylesheetDir('/css/') !!}
-		// add custom attributes to minify and combine all stylesheet files in given folder
-		{!! Minify::stylesheetDir('/css/', array('foo' => 'bar', 'defer' => true)) !!}
-		// minify and combine all stylesheet files in given folder with full uri
-		{!! Minify::stylesheetDir('/css/')->withFullUrl() !!}
-	</head>
-	...
-</html>
-
-```
 
 #### Javascript
-```php
-// app/views/hello.blade.php
 
-<html>
-	<body>
-	...
-	</body>
-	{!! Minify::javascript('/js/jquery.js') !!}
-	// or by passing multiple files
-	{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js')) !!}
-	// add custom attributes
-	{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'), array('bar' => 'baz')) !!}
-	// add full uri of the resource
-	{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'))->withFullUrl() !!}
+	// app/views/hello.blade.php
+	
+	<html>
+		<body>
+		...
+		</body>
+		{!! Minify::javascript('/js/jquery.js') !!}
+		// or by passing multiple files
+		{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js')) !!}
+		// add custom attributes
+		{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'), array('bar' => 'baz')) !!}
+		// add full uri of the resource
+		{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'))->withFullUrl() !!}
+	
+		// minify and combine all javascript files in given folder
+		{!! Minify::javascriptDir('/js/') !!}
+		// add custom attributes to minify and combine all javascript files in given folder
+		{!! Minify::javascriptDir('/js/', array('bar' => 'baz', 'async' => true)) !!}
+		// minify and combine all javascript files in given folder with full uri
+		{!! Minify::javascriptDir('/js/')->withFullUrl() !!}
+	</html>
 
-	// minify and combine all javascript files in given folder
-	{!! Minify::javascriptDir('/js/') !!}
-	// add custom attributes to minify and combine all javascript files in given folder
-	{!! Minify::javascriptDir('/js/', array('bar' => 'baz', 'async' => true)) !!}
-	// minify and combine all javascript files in given folder with full uri
-	{!! Minify::javascriptDir('/js/')->withFullUrl() !!}
-</html>
-
-```
 
 ### Config
-```php
-<?php
+	php
+	<?php
+	
+	return array(
 
-return array(
+    /*
+    |--------------------------------------------------------------------------
+    | Sort Direction
+    |--------------------------------------------------------------------------
+    |
+    | You can set the sort direction (ascending/descending) when
+    | minifying full directories.
+    |
+    */
+
+    'reverse_sort' => true,
 
     /*
     |--------------------------------------------------------------------------
     | App environments to not minify
     |--------------------------------------------------------------------------
     |
-    | These environments will not be minified
+    | These environments will not be minified and all individual files are
+    | returned
     |
     */
 
     'ignore_environments' => array(
-	     'local',
+	    'local',
     ),
 
     /*
     |--------------------------------------------------------------------------
-    | CSS path and CSS build path
+    | CSS build path
     |--------------------------------------------------------------------------
     |
     | Minify is an extension that can minify your css files into one build file.
-    | The css_path property is the location where your CSS files are located
     | The css_builds_path property is the location where the builded files are
-    | stored.  This is relative to the css_path property.
+    | stored. This is relative to your public path. Notice the trailing slash.
+    | Note that this directory must be writeable.
     |
     */
 
     'css_build_path' => '/css/builds/',
+    'css_url_path' => '/css/builds/',
 
     /*
     |--------------------------------------------------------------------------
-    | JS path and JS build path
+    | JS build path
     |--------------------------------------------------------------------------
     |
-    | Minify is an extension that can minify your JS files into one build file.
-    | The JS_path property is the location where your JS files are located
-    | The JS_builds_path property is the location where the builded files are
-    | stored.  This is relative to the css_path property.
+    | Minify is an extension that can minify your js files into one build file.
+    | The js_build_path property is the location where the builded files are
+    | stored. This is relative to your public path. Notice the trailing slash.
+    | Note that this directory must be writeable.
     |
     */
 
     'js_build_path' => '/js/builds/',
+    'js_url_path' => '/js/builds/', 
 
-);
-```
+	/*
+    |--------------------------------------------------------------------------
+    | Base URL
+    |--------------------------------------------------------------------------
+    |
+    | You can set the base URL for the links generated with the configuration
+    | value. By default if empty HTTP_HOST would be used.
+    |
+    */
+	'base_url' => ''
+
+	);
