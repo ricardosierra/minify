@@ -23,7 +23,7 @@ Begin by installing this package through Composer.
 
 ### Laravel installation
 
-Then register the service provider and Facade by opening `app/config/app.php`
+Then register the service provider and Facade by opening `config/app.php`
 
     'Devfactory\Minify\MinifyServiceProvider',
 
