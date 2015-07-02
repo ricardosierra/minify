@@ -49,6 +49,7 @@ class MinifyServiceProvider extends ServiceProvider {
           'js_url_path' => config('minify.config.js_url_path'),
           'ignore_environments' => config('minify.config.ignore_environments'),
           'base_url' => config('minify.config.base_url'),
+          'reverse_sort' => config('minify.config.reverse_sort'),
         ),
         $app->environment()
       );
