@@ -5,6 +5,7 @@ use Devfactory\Minify\Exceptions\CannotSaveFileException;
 use Devfactory\Minify\Exceptions\DirNotExistException;
 use Devfactory\Minify\Exceptions\DirNotWritableException;
 use Devfactory\Minify\Exceptions\FileNotExistException;
+use Illuminate\Filesystem\Filesystem;
 use Countable;
 
 abstract class BaseProvider implements Countable
@@ -40,10 +41,17 @@ abstract class BaseProvider implements Countable
     private $publicPath;
 
     /**
+     * @var Illuminate\Foundation\Filesystem
+     */
+    protected $file;
+
+    /**
      * @param null $publicPath
      */
-    public function __construct($publicPath = null)
+    public function __construct($publicPath = null, Filesystem $file = null)
     {
+        $this->file = $file ?: new Filesystem;
+
         $this->publicPath = $publicPath ?: $_SERVER['DOCUMENT_ROOT'];
 
         $value = function($key)
@@ -186,7 +194,10 @@ abstract class BaseProvider implements Countable
     {
         if (!file_exists($this->outputDir))
         {
+          // Try to create the directory
+          if (!$this->file->makeDirectory($this->outputDir, 0775, true)) {
             throw new DirNotExistException("Buildpath '{$this->outputDir}' does not exist");
+          }
         }
 
         if (!is_writable($this->outputDir))

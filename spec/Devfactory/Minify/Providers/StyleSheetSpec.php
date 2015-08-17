@@ -2,7 +2,9 @@
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Prophecy\Prophet;
 use org\bovigo\vfs\vfsStream;
+use Illuminate\Filesystem\Filesystem;
 
 class StyleSheetSpec extends ObjectBehavior
 {
@@ -56,8 +58,13 @@ class StyleSheetSpec extends ObjectBehavior
 
     function it_should_throw_exception_when_buildpath_not_exist()
     {
-        $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotExistException')
-            ->duringMake('bar');
+      $prophet = new Prophet;
+      $file = $prophet->prophesize('Illuminate\Filesystem\Filesystem');
+      $file->makeDirectory('dir_bar', 0775, true)->willReturn(false);
+
+      $this->beConstructedWith(null, $file);
+      $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotExistException')
+            ->duringMake('dir_bar');
     }
 
     function it_should_throw_exception_when_buildpath_not_writable()
