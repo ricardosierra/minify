@@ -62,7 +62,7 @@ class StyleSheetSpec extends ObjectBehavior
       $file = $prophet->prophesize('Illuminate\Filesystem\Filesystem');
       $file->makeDirectory('dir_bar', 0775, true)->willReturn(false);
 
-      $this->beConstructedWith(null, $file);
+      $this->beConstructedWith(null, null, $file);
       $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotExistException')
             ->duringMake('dir_bar');
     }
