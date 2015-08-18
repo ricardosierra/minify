@@ -50,6 +50,8 @@ class MinifyServiceProvider extends ServiceProvider {
           'ignore_environments' => config('minify.config.ignore_environments'),
           'base_url' => config('minify.config.base_url'),
           'reverse_sort' => config('minify.config.reverse_sort'),
+          'disable_mtime' => config('minify.config.disable_mtime'),
+          'hash_salt' => config('minify.config.hash_salt'),
         ),
         $app->environment()
       );

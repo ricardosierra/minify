@@ -153,6 +153,19 @@ You can use this Facade anywhere in your application
 
 	/*
     |--------------------------------------------------------------------------
+    | Hash modification
+    |--------------------------------------------------------------------------
+    |
+    | You can disable usage of modification time (mtime) for hash build and
+	| add additional salt (exp. commit hash) for hash build
+    |
+    */
+
+    'disable_mtime' => false,
+    'hash_salt' => '',
+
+    /*
+    |--------------------------------------------------------------------------
     | Base URL
     |--------------------------------------------------------------------------
     |

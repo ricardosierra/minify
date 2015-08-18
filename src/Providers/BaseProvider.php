@@ -40,11 +40,24 @@ abstract class BaseProvider implements Countable
     private $publicPath;
 
     /**
+     * @var boolean
+     */
+	private $disable_mtime;
+
+    /**
+     * @var string
+     */
+	private $hash_salt;
+
+    /**
      * @param null $publicPath
      */
-    public function __construct($publicPath = null)
+    public function __construct($publicPath = null, $config = null)
     {
         $this->publicPath = $publicPath ?: $_SERVER['DOCUMENT_ROOT'];
+
+        $this->disable_mtime = $config['disable_mtime'] ?: false;
+        $this->hash_salt = $config['hash_salt'] ?: '';
 
         $value = function($key)
         {
@@ -209,7 +222,7 @@ abstract class BaseProvider implements Countable
      */
     protected function buildMinifiedFilename()
     {
-        $this->filename = $this->getHashedFilename() . $this->countModificationTime() . static::EXTENSION;
+        $this->filename = $this->getHashedFilename() . (($this->disable_mtime) ? '' : $this->countModificationTime()) . static::EXTENSION;
     }
 
     /**
@@ -258,7 +271,7 @@ abstract class BaseProvider implements Countable
      */
     protected function getHashedFilename()
     {
-        return md5(implode('-', $this->files));
+        return md5(implode('-', $this->files) . $this->hash_salt);
     }
 
     /**
