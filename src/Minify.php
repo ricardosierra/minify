@@ -67,7 +67,7 @@ class Minify
    * @return string
    */
   public function javascript($file, $attributes = array()) {
-    $this->provider = new JavaScript(public_path());
+    $this->provider = new JavaScript(public_path(), ['hash_salt' => $this->config['hash_salt'], 'disable_mtime' => $this->config['disable_mtime']]);
     $this->buildPath = $this->config['js_build_path'];
     $this->attributes = $attributes;
     $this->buildExtension = 'js';
@@ -83,7 +83,7 @@ class Minify
    * @return string
    */
   public function stylesheet($file, $attributes = array()) {
-    $this->provider = new StyleSheet(public_path());
+    $this->provider = new StyleSheet(public_path(), ['hash_salt' => $this->config['hash_salt'], 'disable_mtime' => $this->config['disable_mtime']]);
     $this->buildPath = $this->config['css_build_path'];
     $this->attributes = $attributes;
     $this->buildExtension = 'css';
@@ -99,7 +99,7 @@ class Minify
    * @return string
    */
   public function stylesheetDir($dir, $attributes = array()) {
-    $this->provider = new StyleSheet(public_path());
+    $this->provider = new StyleSheet(public_path(), ['hash_salt' => $this->config['hash_salt'], 'disable_mtime' => $this->config['disable_mtime']]);
     $this->buildPath = $this->config['css_build_path'];
     $this->attributes = $attributes;
     $this->buildExtension = 'css';
@@ -113,7 +113,7 @@ class Minify
    * @return string
    */
   public function javascriptDir($dir, $attributes = array()) {
-    $this->provider = new JavaScript(public_path());
+    $this->provider = new JavaScript(public_path(), ['hash_salt' => $this->config['hash_salt'], 'disable_mtime' => $this->config['disable_mtime']]);
     $this->buildPath = $this->config['js_build_path'];
     $this->attributes = $attributes;
     $this->buildExtension = 'js';
