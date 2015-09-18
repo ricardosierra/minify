@@ -14,11 +14,13 @@ For Larvel 4 please use [ceesvanegmond/minify](https://github.com/ceesvanegmond/
 Begin by installing this package through Composer.
 
 
+```js
 	{
 	    "require": {
 	    	"devfactory/minify": "1.0.*"
 		}
 	}
+```
 
 
 ### Laravel installation
@@ -32,16 +34,19 @@ Then register the service provider and Facade by opening `config/app.php`
 
 Publish the config file:
 
+```
 	php artisan vendor:publish
 
+```
 
 When you've added the ```MinifyServiceProvider``` an extra ```Minify``` facade is available.
 You can use this Facade anywhere in your application
 
 #### Stylesheet
-	
+
+```php
 	// app/views/hello.blade.php
-	
+
 	<html>
 		<head>
 			...
@@ -52,7 +57,8 @@ You can use this Facade anywhere in your application
 			{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'), array('foo' => 'bar')) !!}
 			// add full uri of the resource
 			{!! Minify::stylesheet(array('/css/main.css', '/css/bootstrap.css'))->withFullUrl() !!}
-	
+		{!! Minify::stylesheet(array('//fonts.googleapis.com/css?family=Roboto')) !!}
+
 			// minify and combine all stylesheet files in given folder
 			{!! Minify::stylesheetDir('/css/') !!}
 			// add custom attributes to minify and combine all stylesheet files in given folder
@@ -63,11 +69,13 @@ You can use this Facade anywhere in your application
 		...
 	</html>
 
+```
 
 #### Javascript
 
+```php
 	// app/views/hello.blade.php
-	
+
 	<html>
 		<body>
 		...
@@ -79,7 +87,8 @@ You can use this Facade anywhere in your application
 		{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'), array('bar' => 'baz')) !!}
 		// add full uri of the resource
 		{!! Minify::javascript(array('/js/jquery.js', '/js/jquery-ui.js'))->withFullUrl() !!}
-	
+        {!! Minify::javascript(array('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')) !!}
+
 		// minify and combine all javascript files in given folder
 		{!! Minify::javascriptDir('/js/') !!}
 		// add custom attributes to minify and combine all javascript files in given folder
@@ -88,11 +97,12 @@ You can use this Facade anywhere in your application
 		{!! Minify::javascriptDir('/js/')->withFullUrl() !!}
 	</html>
 
+```
 
 ### Config
-	php
+```php
 	<?php
-	
+
 	return array(
 
     /*
@@ -149,7 +159,7 @@ You can use this Facade anywhere in your application
     */
 
     'js_build_path' => '/js/builds/',
-    'js_url_path' => '/js/builds/', 
+    'js_url_path' => '/js/builds/',
 
 	/*
     |--------------------------------------------------------------------------
@@ -176,3 +186,4 @@ You can use this Facade anywhere in your application
 	'base_url' => ''
 
 	);
+```

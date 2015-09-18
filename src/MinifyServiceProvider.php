@@ -31,6 +31,7 @@ class MinifyServiceProvider extends ServiceProvider {
   {
 
     $this->registerServices();
+    $this->mergeConfig();
 
   }
 
@@ -65,6 +66,15 @@ class MinifyServiceProvider extends ServiceProvider {
     $this->publishes([
        __DIR__ . '/config/config.php' => config_path('minify.config.php'),
     ]);
+  }
+
+  /**
+   * Merge media config with users.
+   */
+  private function mergeConfig() {
+    $this->mergeConfigFrom(
+      __DIR__ . '/config/config.php', 'minify.config'
+    );
   }
 
   /**
