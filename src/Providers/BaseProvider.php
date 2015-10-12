@@ -334,7 +334,7 @@ abstract class BaseProvider implements Countable
      */
     protected function put($minified)
     {
-        if(!file_put_contents($this->outputDir . $this->filename, $minified))
+        if(file_put_contents($this->outputDir . $this->filename, $minified) === false)
         {
             throw new CannotSaveFileException("File '{$this->outputDir}{$this->filename}' cannot be saved");
         }
