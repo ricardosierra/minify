@@ -41,7 +41,7 @@ class MinifyServiceProvider extends ServiceProvider {
    * @return void
    */
   protected function registerServices() {
-    $this->app->bindShared('minify', function ($app) {
+    $this->app->singleton('minify', function ($app) {
       return new Minify(
         array(
           'css_build_path' => config('minify.config.css_build_path'),
