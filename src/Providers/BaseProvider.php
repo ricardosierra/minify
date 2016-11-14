@@ -233,8 +233,9 @@ abstract class BaseProvider implements Countable
      */
     protected function buildMinifiedFilename()
     {
-	    if(!empty(config('minify.config.custom_filename'))) {
-		    $this->filename = config('minify.config.custom_filename') . static::EXTENSION;
+	    $custom_filename = config('minify.config.custom_filename');
+	    if(!empty($custom_filename)) {
+	    	$this->filename = $custom_filename . static::EXTENSION;
 	    } else {
 		    $this->filename = $this->getHashedFilename() . (($this->disable_mtime) ? '' : $this->countModificationTime()) . static::EXTENSION;
 	    }
