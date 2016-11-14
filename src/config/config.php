@@ -34,7 +34,7 @@ return array(
     |--------------------------------------------------------------------------
     |
     | Minify uses a random name when it creates the build files, if you prefer to
-    | use the same name always, please specify it here
+    | use the same name always, please specify it here, dont put the extension
     |
     */
     
