@@ -30,6 +30,18 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
+    | Build filename
+    |--------------------------------------------------------------------------
+    |
+    | Minify uses a random name when it creates the build files, if you prefer to
+    | use the same name allways, please specify it here
+    |
+    */
+    
+    'custom_filename' => '', //Leave empty to use random
+
+    /*
+    |--------------------------------------------------------------------------
     | CSS build path
     |--------------------------------------------------------------------------
     |
