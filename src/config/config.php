@@ -34,11 +34,11 @@ return array(
     |--------------------------------------------------------------------------
     |
     | Minify uses a random name when it creates the build files, if you prefer to
-    | use the same name allways, please specify it here
+    | use the same name always, please specify it here
     |
     */
     
-    'custom_filename' => '', //Leave empty to use random
+    'custom_filename' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,6 @@ return array(
 
     'css_build_path' => '/css/builds/',
     'css_url_path' => '/css/builds/',
-    'css_file_name' => '', //Leave empty to use random
 
     /*
     |--------------------------------------------------------------------------
@@ -69,10 +68,9 @@ return array(
     */
 
     'js_build_path' => '/js/builds/',
-    'js_url_path' => '/js/builds/', 
-    'js_file_name' => '', //Leave empty to use random
+    'js_url_path' => '/js/builds/',
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Hash modification
     |--------------------------------------------------------------------------
