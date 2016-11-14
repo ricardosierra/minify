@@ -53,7 +53,7 @@ return array(
     */
 
     'css_build_path' => '/css/builds/',
-    'css_url_path' => '/css/builds/',, 
+    'css_url_path' => '/css/builds/',
     'css_file_name' => '', //Leave empty to use random
 
     /*
