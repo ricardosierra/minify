@@ -4,7 +4,7 @@ namespace Devfactory\Minify\Providers;
 
 use Devfactory\Minify\Contracts\MinifyInterface;
 use CssMinifier;
-use Illuminate\Container\Container;
+
 class StyleSheet extends BaseProvider implements MinifyInterface
 {
     /**
@@ -74,7 +74,7 @@ class StyleSheet extends BaseProvider implements MinifyInterface
      */
     public function urlCorrection($file)
     {
-        $folder = str_replace(Container::getInstance()->basePath().DIRECTORY_SEPARATOR.'public', '', $file);
+        $folder = str_replace(public_path(), '', $file);
         $folder = str_replace(basename($folder), '', $folder);
         return str_replace('url(\'', 'url(\''.$folder, file_get_contents($file));
     }
