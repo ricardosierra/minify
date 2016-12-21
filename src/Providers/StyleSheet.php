@@ -74,7 +74,7 @@ class StyleSheet extends BaseProvider implements MinifyInterface
      */
     public function urlCorrection($file)
     {
-        $folder = str_replace(public_path(), '', $file);
+        $folder = str_replace(app()->basePath().DIRECTORY_SEPARATOR.'public', '', $file);
         $folder = str_replace(basename($folder), '', $folder);
         return str_replace('url(\'', 'url(\''.$folder, file_get_contents($file));
     }
