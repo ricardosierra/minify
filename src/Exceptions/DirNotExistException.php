@@ -1,3 +1,3 @@
-<?php namespace Devfactory\Minify\Exceptions;
+<?php namespace RicardoSierra\Minify\Exceptions;
 
 class DirNotExistException extends \Exception {}

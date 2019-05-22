@@ -1,4 +1,4 @@
-<?php namespace spec\Devfactory\Minify\Providers;
+<?php namespace spec\RicardoSierra\Minify\Providers;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -10,7 +10,7 @@ class StyleSheetSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Devfactory\Minify\Providers\StyleSheet');
+        $this->shouldHaveType('RicardoSierra\Minify\Providers\StyleSheet');
     }
 
     function it_adds_one_file()
@@ -52,7 +52,7 @@ class StyleSheetSpec extends ObjectBehavior
 
     function it_throws_exception_when_file_not_exists()
     {
-        $this->shouldThrow('Devfactory\Minify\Exceptions\FileNotExistException')
+        $this->shouldThrow('RicardoSierra\Minify\Exceptions\FileNotExistException')
             ->duringAdd('foobar');
     }
 
@@ -63,7 +63,7 @@ class StyleSheetSpec extends ObjectBehavior
       $file->makeDirectory('dir_bar', 0775, true)->willReturn(false);
 
       $this->beConstructedWith(null, null, $file);
-      $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotExistException')
+      $this->shouldThrow('RicardoSierra\Minify\Exceptions\DirNotExistException')
             ->duringMake('dir_bar');
     }
 
@@ -71,7 +71,7 @@ class StyleSheetSpec extends ObjectBehavior
     {
         vfsStream::setup('css',0555, array());
 
-        $this->shouldThrow('Devfactory\Minify\Exceptions\DirNotWritableException')
+        $this->shouldThrow('RicardoSierra\Minify\Exceptions\DirNotWritableException')
             ->duringMake(vfsStream::url('css'));
     }
 

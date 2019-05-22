@@ -1,8 +1,8 @@
-<?php  namespace Devfactory\Minify;
+<?php  namespace RicardoSierra\Minify;
 
-use Devfactory\Minify\Exceptions\InvalidArgumentException;
-use Devfactory\Minify\Providers\JavaScript;
-use Devfactory\Minify\Providers\StyleSheet;
+use RicardoSierra\Minify\Exceptions\InvalidArgumentException;
+use RicardoSierra\Minify\Providers\JavaScript;
+use RicardoSierra\Minify\Providers\StyleSheet;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Request;

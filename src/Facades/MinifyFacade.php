@@ -1,4 +1,4 @@
-<?php namespace Devfactory\Minify\Facades;
+<?php namespace RicardoSierra\Minify\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,12 +1,12 @@
 {
-  "name": "devfactory/minify",
+  "name": "ricardosierra/minify",
   "keywords": ["minify", "laravel5"],
   "description": "A package for minifying styles and javascript for laravel 5 ",
   "license": "MIT",
   "authors": [
     {
       "name": "Da Costa Alcindo",
-      "email": "alcindo.dacosta@devfactory.ch"
+      "email": "alcindo.dacosta@ricardosierra.ch"
     }
   ],
   "require": {
@@ -22,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Devfactory\\Minify\\": "src/"
+      "RicardoSierra\\Minify\\": "src/"
     }
   },
   "minimum-stability": "stable"

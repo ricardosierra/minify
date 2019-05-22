@@ -1,6 +1,6 @@
-<?php namespace Devfactory\Minify\Providers;
+<?php namespace RicardoSierra\Minify\Providers;
 
-use Devfactory\Minify\Contracts\MinifyInterface;
+use RicardoSierra\Minify\Contracts\MinifyInterface;
 use JShrink\Minifier;
 
 class JavaScript extends BaseProvider implements MinifyInterface

@@ -1,8 +1,8 @@
 <?php
 
-namespace Devfactory\Minify\Providers;
+namespace RicardoSierra\Minify\Providers;
 
-use Devfactory\Minify\Contracts\MinifyInterface;
+use RicardoSierra\Minify\Contracts\MinifyInterface;
 use CssMinifier;
 
 class StyleSheet extends BaseProvider implements MinifyInterface
@@ -37,7 +37,7 @@ class StyleSheet extends BaseProvider implements MinifyInterface
     /**
      * Override appendFiles to solve css url path issue
      * 
-     * @throws \Devfactory\Minify\Exceptions\FileNotExistException
+     * @throws \RicardoSierra\Minify\Exceptions\FileNotExistException
      */
     protected function appendFiles()
     {
