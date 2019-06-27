@@ -1,4 +1,6 @@
-<?php  namespace RicardoSierra\Minify;
+<?php  
+
+namespace RicardoSierra\Minify;
 
 use RicardoSierra\Minify\Exceptions\InvalidArgumentException;
 use RicardoSierra\Minify\Providers\JavaScript;
@@ -83,7 +85,13 @@ class Minify
    * @return string
    */
   public function stylesheet($file, $attributes = array()) {
-    $this->provider = new StyleSheet(public_path(), ['hash_salt' => $this->config['hash_salt'], 'disable_mtime' => $this->config['disable_mtime']]);
+    $this->provider = new StyleSheet(
+        public_path(),
+        [
+            'hash_salt' => $this->config['hash_salt'],
+            'disable_mtime' => $this->config['disable_mtime']
+        ]
+    );
     $this->buildPath = $this->config['css_build_path'];
     $this->attributes = $attributes;
     $this->buildExtension = 'css';
