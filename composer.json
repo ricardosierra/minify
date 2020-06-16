@@ -28,7 +28,8 @@
   "replace": {
       "devfactory/minify":"*"
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "extra": {
       "laravel": {
           "providers": [
