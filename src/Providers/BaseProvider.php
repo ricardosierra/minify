@@ -117,13 +117,16 @@ abstract class BaseProvider implements Countable
         {
             $this->files[] = $file;
         }
-        else {
-            $file = $this->publicPath . $file;
+        else if (file_exists($this->publicPath . $file))
+        {
+            $this->files[] = $this->publicPath . $file;
+        }
+        else
+        {
             if (!file_exists($file))
             {
                 throw new FileNotExistException("File '{$file}' does not exist");
             }
-
             $this->files[] = $file;
         }
     }
