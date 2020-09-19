@@ -27,9 +27,9 @@ Begin by installing this package through Composer.
 
 Then register the service provider and Facade by opening `config/app.php`
 
-    'RicardoSierra\Minify\MinifyServiceProvider',
+    RicardoSierra\Minify\MinifyServiceProvider::class,
 
-    'Minify'        => 'RicardoSierra\Minify\Facades\MinifyFacade',
+    'Minify'   => RicardoSierra\Minify\Facades\MinifyFacade::class,
 
 
 Publish the config file:
