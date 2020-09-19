@@ -23,8 +23,8 @@ class StyleSheet extends BaseProvider implements MinifyInterface
     }
 
     /**
-     * @param $file
-     * @param array $attributes
+     * @param  $file
+     * @param  array $attributes
      * @return string
      */
     public function tag($file, array $attributes = array())
@@ -43,16 +43,19 @@ class StyleSheet extends BaseProvider implements MinifyInterface
     {
         foreach ($this->files as $file) {
             if ($this->checkExternalFile($file)) {
-                if (strpos($file, '//') === 0) $file = 'http:'.$file;
+                if (strpos($file, '//') === 0) { $file = 'http:'.$file;
+                }
 
                 $headers = $this->headers;
                 foreach ($headers as $key => $value) {
                     $headers[$key] = $key.': '.$value;
                 }
-                $context = stream_context_create(array('http' => array(
+                $context = stream_context_create(
+                    array('http' => array(
                         'ignore_errors' => true,
                         'header' => implode("\r\n", $headers),
-                )));
+                    ))
+                );
 
                 $http_response_header = array(false);
 
@@ -69,7 +72,7 @@ class StyleSheet extends BaseProvider implements MinifyInterface
     /**
      * Css url path correction
      * 
-     * @param string $file
+     * @param  string $file
      * @return string
      */
     public function urlCorrection($file)

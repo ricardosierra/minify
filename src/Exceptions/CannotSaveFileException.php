@@ -1,3 +1,5 @@
 <?php  namespace RicardoSierra\Minify\Exceptions;
 
-class CannotSaveFileException extends \Exception{}
+class CannotSaveFileException extends \Exception
+{
+}

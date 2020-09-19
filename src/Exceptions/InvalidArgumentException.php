@@ -1,3 +1,5 @@
 <?php  namespace RicardoSierra\Minify\Exceptions;
 
-class InvalidArgumentException extends \Exception{}
+class InvalidArgumentException extends \Exception
+{
+}

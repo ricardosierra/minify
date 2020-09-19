@@ -1,3 +1,5 @@
 <?php  namespace RicardoSierra\Minify\Exceptions;
 
-class DirNotWritableException extends \Exception {}
+class DirNotWritableException extends \Exception
+{
+}

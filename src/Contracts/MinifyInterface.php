@@ -1,6 +1,7 @@
 <?php namespace RicardoSierra\Minify\Contracts;
 
-interface MinifyInterface {
+interface MinifyInterface
+{
 
     /**
      * @return mixed

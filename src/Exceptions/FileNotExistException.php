@@ -1,3 +1,5 @@
 <?php namespace RicardoSierra\Minify\Exceptions;
 
-class FileNotExistException extends \Exception {}
+class FileNotExistException extends \Exception
+{
+}
