@@ -17,7 +17,7 @@
     "illuminate/support": "^7.0 || ^8.0"
   },
   "require-dev": {
-    "phpspec/phpspec": "2.0.0",
+    "phpspec/phpspec": ">=2.0.0",
     "mikey179/vfsstream": "1.2.*"
   },
   "autoload": {
