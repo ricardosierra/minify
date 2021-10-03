@@ -36,8 +36,10 @@ class StyleSheet extends BaseProvider implements MinifyInterface
 
     /**
      * Override appendFiles to solve css url path issue
-     * 
+     *
      * @throws \RicardoSierra\Minify\Exceptions\FileNotExistException
+     *
+     * @return void
      */
     protected function appendFiles()
     {

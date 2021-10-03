@@ -67,6 +67,8 @@ class MinifyServiceProvider extends ServiceProvider
 
     /**
      * Publish the package configuration
+     *
+     * @return void
      */
     protected function publishConfig()
     {
@@ -79,6 +81,8 @@ class MinifyServiceProvider extends ServiceProvider
 
     /**
      * Merge media config with users.
+     *
+     * @return void
      */
     private function mergeConfig()
     {
