@@ -135,9 +135,11 @@ class Minify
     }
 
     /**
-     * @param  $ext
-     * @param  $dir
-     * @return string
+     * @param $ext
+     * @param $dir
+     * @param string $ext
+     *
+     * @return static
      */
     private function assetDirHelper($ext, $dir)
     {
@@ -169,6 +171,9 @@ class Minify
 
     /**
      * @param $file
+     * @param string[] $file
+     *
+     * @return void
      */
     private function process($file)
     {
@@ -245,9 +250,11 @@ class Minify
     }
 
     /**
-     * @param  array $config
+     * @param array $config
+     *
      * @throws Exceptions\InvalidArgumentException
-     * @return array
+     *
+     * @return void
      */
     private function checkConfiguration(array $config)
     {

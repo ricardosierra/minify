@@ -154,6 +154,8 @@ abstract class BaseProvider implements Countable
 
     /**
      * @throws \RicardoSierra\Minify\Exceptions\FileNotExistException
+     *
+     * @return void
      */
     protected function appendFiles()
     {
@@ -201,6 +203,8 @@ abstract class BaseProvider implements Countable
     /**
      * @throws \RicardoSierra\Minify\Exceptions\DirNotWritableException
      * @throws \RicardoSierra\Minify\Exceptions\DirNotExistException
+     *
+     * @return void
      */
     protected function checkDirectory()
     {
@@ -217,8 +221,9 @@ abstract class BaseProvider implements Countable
     }
 
     /**
-     * @param  string $file
-     * @return bool
+     * @param string $file
+     *
+     * @return false|int
      */
     protected function checkExternalFile($file)
     {
@@ -226,7 +231,7 @@ abstract class BaseProvider implements Countable
     }
 
     /**
-     * @return string
+     * @return void
      */
     protected function buildMinifiedFilename()
     {
@@ -258,9 +263,10 @@ abstract class BaseProvider implements Countable
     /**
      * Build a single attribute element.
      *
-     * @param  string|integer $key
-     * @param  string|boolean $value
-     * @return string|null
+     * @param string|integer $key
+     * @param string|boolean $value
+     *
+     * @return bool|null|string
      */
     protected function attributeElement($key, $value)
     {
@@ -318,6 +324,8 @@ abstract class BaseProvider implements Countable
 
     /**
      * @throws \RicardoSierra\Minify\Exceptions\CannotRemoveFileException
+     *
+     * @return void
      */
     protected function removeOldFiles()
     {
@@ -335,8 +343,11 @@ abstract class BaseProvider implements Countable
     }
 
     /**
-     * @param  $minified
+     * @param $minified
+     * @param bool|string $minified
+     *
      * @return string
+     *
      * @throws \RicardoSierra\Minify\Exceptions\CannotSaveFileException
      */
     protected function put($minified)
