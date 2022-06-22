@@ -41,7 +41,7 @@ abstract class BaseProvider implements Countable
     private $publicPath;
 
     /**
-     * @var Illuminate\Foundation\Filesystem
+     * @var \Illuminate\Foundation\Filesystem
      */
     protected $file;
 
