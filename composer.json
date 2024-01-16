@@ -52,5 +52,10 @@
             "Minify": "RicardoSierra\\Minify\\Facades\\MinifyFacade"
           }
       }
+  },
+  "config": {
+    "allow-plugins": {
+      "phpro/grumphp": true
+    }
   }
 }
