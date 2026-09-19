@@ -32,6 +32,11 @@
             "RicardoSierra\\Minify\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "RicardoSierra\\Minify\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "psalm": "vendor/bin/psalm",
         "test": "vendor/bin/phpunit",

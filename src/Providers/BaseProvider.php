@@ -62,10 +62,11 @@ abstract class BaseProvider implements Countable
     {
         $this->file = $file ?: new Filesystem;
 
-        $this->publicPath = $publicPath ?: $_SERVER['DOCUMENT_ROOT'];
+        $this->publicPath = $publicPath ?: ($_SERVER['DOCUMENT_ROOT'] ?? '');
 
-        $this->disable_mtime = $config['disable_mtime'] ?: false;
-        $this->hash_salt = $config['hash_salt'] ?: '';
+        $config = is_array($config) ? $config : [];
+        $this->disable_mtime = !empty($config['disable_mtime']);
+        $this->hash_salt = !empty($config['hash_salt']) ? $config['hash_salt'] : '';
 
         $value = function ($key) {
             return isset($_SERVER[$key]) ? $_SERVER[$key] : '';
