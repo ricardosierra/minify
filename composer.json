@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "tedivm/jshrink": "~1.0",
         "natxet/cssmin": "3.*",
         "illuminate/filesystem": "^13.0",
@@ -66,5 +66,5 @@
             "phpro/grumphp": true
         }
     },
-    "version": "2.3.0"
+    "version": "2.4.0"
 }

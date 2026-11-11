@@ -13,4 +13,9 @@
     <php>
         <env name="APP_ENV" value="production"/>
     </php>
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
 </phpunit>
